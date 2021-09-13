@@ -252,7 +252,7 @@ def splitpredict(hparams, checkpoint_callback, meta_data_vocab, train_dataloader
 
         # testing rescoring 
         inp_fp = model.predictions_f_allennlp
-        rescored = rescore(inp_fp, model_dir=hparams.rescore_model, batch_size=256)
+        rescored = rescore(inp_fp, model_dir=hparams.rescore_model, batch_size=hparams.batch_size)
 
         all_predictions, sentence_str = [], ''
         for line_i, line in enumerate(rescored):
