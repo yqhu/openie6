@@ -19,6 +19,12 @@ python -m nltk.downloader punkt
 All results have been obtained on V100 GPU with CUDA 10.0
 NOTE: HuggingFace transformers==2.6.0 is necessary. The latest version has a breaking change in the way tokenizer is used in the code. It will not raise an error but will give wrong results!
 
+Note: this branch is for testing fp16 so PyTorch needs to be updated to 1.6.0 or later.  For AWS instances, run
+<pre>
+pip uninstall torch
+conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=11.0 -c pytorch
+</pre>
+
 ## Download Resources
 Download Data (50 MB)
 ```

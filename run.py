@@ -109,7 +109,7 @@ def test(hparams, checkpoint_callback, meta_data_vocab, train_dataloader, val_da
     test_f = open(hparams.save+'/logs/test.txt', 'w')
 
     for checkpoint_path in checkpoint_paths:
-        trainer = Trainer(logger=logger, gpus=hparams.gpus,resume_from_checkpoint=checkpoint_path)
+        trainer = Trainer(logger=logger, gpus=hparams.gpus,resume_from_checkpoint=checkpoint_path, precision=16)
         trainer.test(model, test_dataloaders=test_dataloader)
         result = model.results
         test_f.write(f'{checkpoint_path}\t{result}\n')
@@ -141,7 +141,7 @@ def predict(hparams, checkpoint_callback, meta_data_vocab, train_dataloader, val
         model._metric.conj_word_mapping = conj_word_mapping
 
     logger = None
-    trainer = Trainer(gpus=hparams.gpus, logger=logger, resume_from_checkpoint=checkpoint_path)
+    trainer = Trainer(gpus=hparams.gpus, logger=logger, resume_from_checkpoint=checkpoint_path, precision=16)
     start_time = time.time()
     model.all_sentences = all_sentences
     trainer.test(model, test_dataloaders=test_dataloader)
@@ -221,7 +221,7 @@ def splitpredict(hparams, checkpoint_callback, meta_data_vocab, train_dataloader
     hparams.checkpoint = hparams.oie_model
     hparams.model_str = 'bert-base-cased'
     _, _, split_test_dataset, meta_data_vocab, _ = data.process_data(hparams, sentences)
-    split_test_dataloader = DataLoader(split_test_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=1)
+    split_test_dataloader = DataLoader(split_test_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=4)
     
     model = predict(hparams, None, meta_data_vocab, None, None, split_test_dataloader,
              mapping=mapping, conj_word_mapping=conj_word_mapping, all_sentences=all_sentences)
