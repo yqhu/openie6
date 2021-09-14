@@ -380,7 +380,8 @@ def evaluate(model: Model,
 
         iterator = data_iterator(instances,
                                  num_epochs=1,
-                                 shuffle=False)
+                                 shuffle=False,
+                                 batch_size=128)
         logger.info("Iterating over dataset")
         generator_tqdm = Tqdm.tqdm(iterator, total=data_iterator.get_num_batches(instances))
 
