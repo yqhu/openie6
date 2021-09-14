@@ -85,7 +85,7 @@ def generate_probs(model_dir, inp_fp, weights_fp, topk, out_ext, cuda_device, ov
         return all_fields_sorted
 
 
-def rescore(inp_fp, topk=None, out_ext=None, model_dir='imojie/models/be', cuda_device=0, overwrite=True, ext_ratio=1, batch_size = 64):
+def rescore(inp_fp, topk=None, out_ext=None, model_dir='imojie/models/be', cuda_device=-1, overwrite=True, ext_ratio=1, batch_size = 64):
     weights_fp = model_dir + '/best.th'
     return generate_probs(model_dir, inp_fp, weights_fp, topk, out_ext, cuda_device, overwrite=overwrite, extraction_ratio=ext_ratio, batch_size=batch_size, out=None)
 
