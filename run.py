@@ -450,9 +450,9 @@ def main(hparams):
 
     train_dataset, val_dataset, test_dataset, meta_data_vocab, all_sentences = data.process_data(hparams)
     train_dataloader = DataLoader(train_dataset, batch_size=hparams.batch_size,
-                                  collate_fn=data.pad_data, shuffle=True, num_workers=1)
-    val_dataloader = DataLoader(val_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=1)
-    test_dataloader = DataLoader(test_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=1)
+                                  collate_fn=data.pad_data, shuffle=True, num_workers=4)
+    val_dataloader = DataLoader(val_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=4)
+    test_dataloader = DataLoader(test_dataset, batch_size=hparams.batch_size, collate_fn=data.pad_data, num_workers=4)
 
     for process in hparams.mode.split('_'):
         globals()[process](hparams, checkpoint_callback, meta_data_vocab, 
